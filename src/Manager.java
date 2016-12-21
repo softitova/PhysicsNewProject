@@ -125,12 +125,5 @@ public class Manager {
         System.out.println(del + " " + curN + " " + curSin + " " + x + " " + y + " ");
         pointsGetter = new PointsGetter(del, curN, curSin, x, y);
 
-//        pointsGetter = new PointsGetter(
-//                Double.parseDouble(st.nextToken()),
-//                Double.parseDouble(st.nextToken()),
-//                Math.sin(Math.toRadians(Double.parseDouble(st.nextToken()))),
-//                Double.parseDouble(st.nextToken()),
-//                Double.parseDouble(st.nextToken()));
-
     }
 }

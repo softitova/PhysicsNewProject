@@ -4,7 +4,7 @@ package model;
  * Created by vadim on 28.11.16.
  */
 public class Point {
-    public int x, y;
+    public double x, y;
 
     public Point() {}
 
@@ -13,10 +13,8 @@ public class Point {
         return "{x=" + x + ", y=" + y + "}";
     }
 
-    public Point(int x, int y) {
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
-
-
     }
 }
