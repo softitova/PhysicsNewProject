@@ -11,7 +11,7 @@ import model.Point;
 
 public class Painter {
 
-    public void paintRay(List<Point> points) {
+    public void paintRay(List<List<Point>> points) {
         JFrame jFrame = new JFrame();
 
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,9 +21,9 @@ public class Painter {
     }
 
     class MyPanel extends JPanel {
-        List<Point> points = null;
+        List<List<Point>> points = null;
 
-        MyPanel(List<Point> points) {
+        MyPanel(List<List<Point>> points) {
             super();
             this.points = points;
         }
@@ -32,10 +32,13 @@ public class Painter {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.setColor(Color.BLUE);
-            for (int i = 0; i < points.size() - 1; ++i) {
-                Point cur = points.get(i);
-                Point next = points.get(i+1);
-                g.drawLine(cur.x, cur.y, next.x, next.y);
+            for (int i = 0; i < points.size(); ++i) {
+                List<Point> cur = points.get(i);
+                for (int j = 0; j < cur.size() - 1; ++j) {
+                    Point prev = cur.get(i);
+                    Point next = cur.get(i + 1);
+                    g.drawLine(prev.x, prev.y, next.x, next.y);
+                }
             }
         }
 
