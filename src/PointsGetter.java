@@ -9,14 +9,15 @@ public class PointsGetter {
 
     private double DELTA = 1;
     private double curN = 1;
-    private double curSin = 1/2;
+    private double curSin = 1 / 2;
     private double nextX = 1;
     private double nextY = 1;
 
     /**
      * default ctor
      */
-    PointsGetter() {}
+    PointsGetter() {
+    }
 
     public double getCurSin() {
         return curSin;

@@ -2,6 +2,7 @@ package graphics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import model.Point;
 
@@ -11,7 +12,7 @@ import model.Point;
 
 public class Painter {
 
-    public void paintRay(List<List<Point>> points) {
+    public void paintRay(ArrayList<ArrayList<Point>> points) {
         JFrame jFrame = new JFrame();
 
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,9 +22,9 @@ public class Painter {
     }
 
     class MyPanel extends JPanel {
-        List<List<Point>> points = null;
+        ArrayList<ArrayList<Point>> points = null;
 
-        MyPanel(List<List<Point>> points) {
+        MyPanel(ArrayList<ArrayList<Point>> points) {
             super();
             this.points = points;
         }
@@ -32,11 +33,17 @@ public class Painter {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.setColor(Color.BLUE);
+//            System.out.println(points.size()+ " points size");
+            System.out.println("MyPanel.paintComponent");
+//            System.out.println(points);
+            points.forEach(System.out::println);
             for (int i = 0; i < points.size(); ++i) {
+//            int i =0;
                 List<Point> cur = points.get(i);
                 for (int j = 0; j < cur.size() - 1; ++j) {
-                    Point prev = cur.get(i);
-                    Point next = cur.get(i + 1);
+                    Point prev = cur.get(j);
+                    Point next = cur.get(j + 1);
+//                    System.out.println(prev.x + " prev x  " +  prev.y + " prev y " ) ;
                     g.drawLine(prev.x, prev.y, next.x, next.y);
                 }
             }
