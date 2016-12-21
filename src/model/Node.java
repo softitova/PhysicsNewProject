@@ -1,5 +1,4 @@
 package model;
-
 import parser.L;
 
 import java.util.HashMap;

@@ -1,5 +1,6 @@
 package parser;
 
+import model.*;
 /**
  * Created by vadim on 26.11.16.
  */
@@ -108,17 +109,17 @@ public class Parser {
     private Node alone() {
         Node ret = null;
         switch (lex) {
-            case L.open:
+            case open:
                 getLex();
                 ret = expression();
                 verify(lex == L.close);
                 getLex();
                 return ret;
-            case L.var:
+            case var:
                 ret = new Variable(var);
                 getLex();
                 return ret;
-            case L.val:
+            case val:
                 ret = new Constant(value);
                 getLex();
                 return ret;

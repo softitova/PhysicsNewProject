@@ -1,6 +1,7 @@
 package parser;
+import java.math.BigDecimal;
 
-import model.Node;
+import model.*;
 
 /**
  * Created by vadim on 26.11.16.

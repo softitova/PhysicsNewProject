@@ -1,5 +1,5 @@
 package parser;
-
+import model.*;
 /**
  * Created by vadim on 26.11.16.
  */

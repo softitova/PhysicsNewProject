@@ -1,7 +1,8 @@
-import graphics.Painter;
-import model.Node;
-import parser.Parser;
-import model.Point;
+import com.sun.xml.internal.bind.v2.TODO;
+
+import graphics.*;
+import model.*;
+import parser.*;
 
 import java.io.*;
 import java.util.ArrayList;

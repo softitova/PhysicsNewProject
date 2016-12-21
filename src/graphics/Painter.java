@@ -2,8 +2,8 @@ package graphics;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Point;
 import java.util.List;
+import model.Point;
 
 /**
  * Created by vadim on 28.11.16.
