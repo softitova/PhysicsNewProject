@@ -59,7 +59,7 @@ public class Manager {
         out.close();
     }
 
-    private void start(int index) {
+    private synchronized void start(int index) {
         try {
             double height = 800;
             makePointsGetter(st);
@@ -70,28 +70,16 @@ public class Manager {
  *  make new pointsGetter with default values for all arguments
  */
 //        if (st.countTokens() == 5) {   // TODO: normal constructor with correct fields of users data
-//            pointsGetter = new PointsGetter(
-//                    Double.parseDouble(st.nextToken()),
-//                    Double.parseDouble(st.nextToken()),
-//                    Math.sin(Math.toRadians(Double.parseDouble(st.nextToken()))),
-//                    Double.parseDouble(st.nextToken()),
-//                    Double.parseDouble(st.nextToken()));
-//        } else {
-//            pointsGetter = new PointsGetter();
-//        }
-            // pointsGetter = new PointsGetter(30, 1, 0.85, 400, 0);
-
+//
             height /= pointsGetter.getDELTA();
-            System.out.println(height + " height");
 
 
-            for (int i = 0; i < 5; i++) { // TODO change 5 to height
-                getNewPoint(i);
+            for (int i = 0; i < height; i++) {
+                getNewPoint(index);
                 System.out.println();
             }
             int xx = (int) pointsGetter.getNextX();
             int yy = (int) pointsGetter.getNextY();
-//            System.out.println(xx + " = xx " + yy + " = yy "  + index + " index ");
             points.get(index).add(new Point(xx, yy));
 
         } catch (IOException e) {
@@ -103,7 +91,6 @@ public class Manager {
         double curX = pointsGetter.getNextX();
         double curY = pointsGetter.getNextY();
         double nextN = expression.evaluate(curX, curY); // TODO: fix bag with double value
-//                System.out.println(curX + " curX " + curY + " curY " + nextN + " nextN " );
         pointsGetter.getNextPoint(nextN);  // TODO: check this method
         pointsGetter.setCurN(nextN);
         points.get(index).add(new Point((int) curX, (int) curY));
@@ -111,7 +98,7 @@ public class Manager {
 
     private static void makeExpression(BufferedReader in) throws IOException {
         Parser parser = new Parser();
-        function = "2";  // TODO: move to input file
+        function = "1";  // TODO: move to input file
         expression = parser.getNode(function);
     }
 
@@ -122,7 +109,7 @@ public class Manager {
         double curSin = Math.sin(Math.toRadians(Double.parseDouble(st.nextToken())));
         double x = Double.parseDouble(st.nextToken());
         double y = Double.parseDouble(st.nextToken());
-        System.out.println(del + " " + curN + " " + curSin + " " + x + " " + y + " ");
+//        System.out.println(del + " " + curN + " " + curSin + " " + x + " " + y + " ");
         pointsGetter = new PointsGetter(del, curN, curSin, x, y);
 
     }

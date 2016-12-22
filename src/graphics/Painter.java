@@ -22,12 +22,20 @@ public class Painter {
         SwingWrapper rapper = new SwingWrapper(chart);
         rapper.displayChart();
         for (int i = 1; i < points.size(); ++i) {
+
             try {
-                Thread.sleep(1000);
-            } catch (Exception ignore) {}
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+//            System.out.println("Painter.paintRay");
+//            System.out.println(i);
+            System.out.println(points.get(i));
             chart.addSeries(Integer.toString(i), getX(points.get(i)), getY(points.get(i)));
             rapper.repaintChart();
+//            notifyAll();
         }
+        System.out.println("finished");
     }
 
     double[] getX(List<Point> list) {

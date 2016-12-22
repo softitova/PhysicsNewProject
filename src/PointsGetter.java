@@ -12,6 +12,8 @@ public class PointsGetter {
     private double curSin = 1 / 2;
     private double nextX = 1;
     private double nextY = 1;
+    private int part = 3;
+
 
     /**
      * default ctor
@@ -62,9 +64,81 @@ public class PointsGetter {
      * returns new point after passing the distance with new N
      */
     void getNextPoint(double nextN) {
+        double prevSin = curSin;
         getNextSin(nextN);
-        nextX += 1 / (Math.tan(Math.asin(curSin)) / DELTA);
-        nextY += DELTA;
+        if (curSin > 1 || curSin < -1) {
+            curSin = prevSin;
+        }
+        System.out.println(Math.toDegrees(curSin) + " curSin");
+        System.out.println(Math.tan(Math.asin(curSin)) + " arctg");
+        double x = (DELTA * (Math.tan(Math.asin(curSin))));
+        System.out.println(x + " first X");
+        x *= x > 0 ? 1 : -1;
+        System.out.println(DELTA * (Math.tan(Math.asin(curSin))) + " DELTA * (Math.tan(Math.asin(curSin)))");
+        System.out.println(x + " x ");
+        switch (part) {
+            case 2:
+                if (curSin > 1) {
+                    nextX += x;
+                    nextY += DELTA;
+                    part = 3;
+                } else if (curSin > 0) {
+                    nextX += x;
+                    nextY -= DELTA;
+                    part = 2;
+                } else if (curSin < 0 && curSin >= -1) {
+                    nextX -= x;
+                    nextY -= DELTA;
+                    part = 1;
+                }
+                break;
+            case 1:
+                if (curSin > 1) {
+                    nextX -= x;
+                    nextY += DELTA;
+                    part = 4;
+                } else if (curSin > 0) {
+                    nextX -= x;
+                    nextY -= DELTA;
+                    part = 1;
+                } else if (curSin < 0 && curSin >= -1) {
+                    nextX += x;
+                    nextY -= DELTA;
+                    part = 2;
+                }
+                break;
+            case 3:
+                if (curSin > 1) {
+                    nextX += x;
+                    nextY -= DELTA;
+                    part = 2;
+                } else if (curSin > 0) {
+                    nextX += x;
+                    nextY += DELTA;
+                    part = 3;
+                    System.out.println(" here + " + nextX + " nextx, " + nextY + " nextY, ");
+                } else if (curSin < 0 && curSin >= -1) {
+                    nextX -= x;
+                    nextY += DELTA;
+                    part = 4;
+                }
+                break;
+            default:
+                if (curSin > 1) {
+                    nextX -= x;
+                    nextY -= DELTA;
+                    part = 1;
+                } else if (curSin > 0) {
+                    nextX -= x;
+                    nextY += DELTA;
+                    part = 4;
+                } else if (curSin < 0 && curSin >= -1) {
+                    nextX += x;
+                    nextY += DELTA;
+                    part = 3;
+                }
+//                    nextX += 1 / (Math.tan(Math.asin(curSin)) / DELTA);
+//                nextY += DELTA;
+        }
     }
-
 }
