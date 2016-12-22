@@ -69,13 +69,13 @@ public class PointsGetter {
         if (curSin > 1 || curSin < -1) {
             curSin = prevSin;
         }
-        System.out.println(Math.toDegrees(curSin) + " curSin");
-        System.out.println(Math.tan(Math.asin(curSin)) + " arctg");
+//        System.out.println(Math.toDegrees(curSin) + " curSin");
+//        System.out.println(Math.tan(Math.asin(curSin)) + " arctg");
         double x = (DELTA * (Math.tan(Math.asin(curSin))));
-        System.out.println(x + " first X");
+//        System.out.println(x + " first X");
         x *= x > 0 ? 1 : -1;
-        System.out.println(DELTA * (Math.tan(Math.asin(curSin))) + " DELTA * (Math.tan(Math.asin(curSin)))");
-        System.out.println(x + " x ");
+//        System.out.println(DELTA * (Math.tan(Math.asin(curSin))) + " DELTA * (Math.tan(Math.asin(curSin)))");
+//        System.out.println(x + " x ");
         switch (part) {
             case 2:
                 if (curSin > 1) {
@@ -86,7 +86,7 @@ public class PointsGetter {
                     nextX += x;
                     nextY -= DELTA;
                     part = 2;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     nextX -= x;
                     nextY -= DELTA;
                     part = 1;
@@ -101,7 +101,7 @@ public class PointsGetter {
                     nextX -= x;
                     nextY -= DELTA;
                     part = 1;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     nextX += x;
                     nextY -= DELTA;
                     part = 2;
@@ -116,8 +116,8 @@ public class PointsGetter {
                     nextX += x;
                     nextY += DELTA;
                     part = 3;
-                    System.out.println(" here + " + nextX + " nextx, " + nextY + " nextY, ");
-                } else if (curSin < 0 && curSin >= -1) {
+//                    System.out.println(" here + " + nextX + " nextx, " + nextY + " nextY, ");
+                } else {
                     nextX -= x;
                     nextY += DELTA;
                     part = 4;
@@ -132,7 +132,7 @@ public class PointsGetter {
                     nextX -= x;
                     nextY += DELTA;
                     part = 4;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     nextX += x;
                     nextY += DELTA;
                     part = 3;
