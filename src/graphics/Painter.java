@@ -20,22 +20,13 @@ public class Painter {
         XYChart chart = QuickChart.getChart("Graphico for waves", "X", "Y", "0",
                 getX(points.get(0)), getY(points.get(0)));
         SwingWrapper rapper = new SwingWrapper(chart);
-        rapper.displayChart();
-        for (int i = 1; i < points.size(); ++i) {
 
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//            System.out.println("Painter.paintRay");
-//            System.out.println(i);
-            System.out.println(points.get(i));
+        for (int i = 1; i < points.size(); ++i) {
+            //System.out.println(points.get(i));
             chart.addSeries(Integer.toString(i), getX(points.get(i)), getY(points.get(i)));
-            rapper.repaintChart();
-//            notifyAll();
         }
-        System.out.println("finished");
+        rapper.displayChart();
+       // System.out.println("finished");
     }
 
     double[] getX(List<Point> list) {

@@ -1,5 +1,3 @@
-import com.sun.deploy.uitoolkit.impl.awt.AWTErrorPanel;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import graphics.*;
 import model.*;
@@ -7,7 +5,6 @@ import parser.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Manager {
@@ -16,8 +13,7 @@ public class Manager {
     private static Node expression;
     private static PointsGetter pointsGetter;
     private static int count;
-    private static StringTokenizer st;
-    private static BufferedReader in;
+    private static InputReader in;
     static ArrayList<ArrayList<Point>> points;
 
     static Manager myManager = new Manager();
@@ -28,7 +24,6 @@ public class Manager {
         MyThread(int index) {
             super();
             this.index = index;
-
         }
 
         public void run() {
@@ -37,23 +32,23 @@ public class Manager {
         }
     }
 
-
     public static void main(String[] args) throws IOException {
-        in = new BufferedReader(new FileReader("input.txt")); // TODO :  change available to user fields
+        in = new InputReader(new FileInputStream("input.txt"));
         PrintWriter out = new PrintWriter(new File("output.txt"));
-        makeExpression(in);
+        makeExpression();
 
         /**
          * count is amount of light lines in input file
          */
         //count = Integer.parseInt(in.readLine()) ; TODO fix input file
-        count = 3; //
+        count = 10; //
         points = new ArrayList<>();
         for (int i = 0; i < count; i++) {
+            System.out.println(i);
             points.add(new ArrayList<>());
             new MyThread(i).run();
         }
-        System.out.println("Manager.main");
+       // System.out.println("Manager.main");
         new Painter().paintRay(points);
 
         out.close();
@@ -61,25 +56,27 @@ public class Manager {
 
     private synchronized void start(int index) {
         try {
-            double height = 800;
-            makePointsGetter(st);
-            System.out.println("here");
+            double height = 50;
+            makePointsGetter();
 /**
  *  get some data for constructor with arguments if we have them in input
  *  or
  *  make new pointsGetter with default values for all arguments
  */
-//        if (st.countTokens() == 5) {   // TODO: normal constructor with correct fields of users data
-//
             height /= pointsGetter.getDELTA();
 
-
-            for (int i = 0; i < height; i++) {
-                getNewPoint(index);
-                System.out.println();
+            int iters = 50;
+            for (int i = 0; i < iters; i++) {
+                double curX = pointsGetter.getX();
+                double curY = pointsGetter.getY();
+                double nextN = expression.evaluate(curX, curY); // TODO: fix bag with double value
+                System.out.println(nextN);
+                pointsGetter.getNextPoint(nextN);  // TODO: check this method
+                pointsGetter.setCurN(nextN);
+                points.get(index).add(new Point(curX, curY));
             }
-            int xx = (int) pointsGetter.getNextX();
-            int yy = (int) pointsGetter.getNextY();
+            double xx = pointsGetter.getX();
+            double yy = pointsGetter.getY();
             points.get(index).add(new Point(xx, yy));
 
         } catch (IOException e) {
@@ -87,30 +84,49 @@ public class Manager {
         }
     }
 
-    private static synchronized void getNewPoint(int index) {
-        double curX = pointsGetter.getNextX();
-        double curY = pointsGetter.getNextY();
-        double nextN = expression.evaluate(curX, curY); // TODO: fix bag with double value
-        pointsGetter.getNextPoint(nextN);  // TODO: check this method
-        pointsGetter.setCurN(nextN);
-        points.get(index).add(new Point((int) curX, (int) curY));
-    }
-
-    private static void makeExpression(BufferedReader in) throws IOException {
+    private static void makeExpression() throws IOException {
         Parser parser = new Parser();
-        function = "1";  // TODO: move to input file
+        function = "x-y";  // TODO: move to input file
         expression = parser.getNode(function);
     }
 
-    private synchronized void makePointsGetter(StringTokenizer st) throws IOException {
-        st = new StringTokenizer(in.readLine());
-        double del = Double.parseDouble(st.nextToken());
-        double curN = Double.parseDouble(st.nextToken());
-        double curSin = Math.sin(Math.toRadians(Double.parseDouble(st.nextToken())));
-        double x = Double.parseDouble(st.nextToken());
-        double y = Double.parseDouble(st.nextToken());
-//        System.out.println(del + " " + curN + " " + curSin + " " + x + " " + y + " ");
-        pointsGetter = new PointsGetter(del, curN, curSin, x, y);
+    private synchronized void makePointsGetter() throws IOException {
+        double del = in.nextDouble();
+        double curN = in.nextDouble();
+        double curSin = Math.sin(Math.toRadians(in.nextDouble()));
+        double x = in.nextDouble();
+        double y = in.nextDouble();
+        int part = in.nextInt();
+        pointsGetter = new PointsGetter(del, curN, curSin, x, y, part);
+    }
+
+    static class InputReader {
+        public BufferedReader reader;
+        public StringTokenizer tokenizer;
+
+        public InputReader(InputStream stream) {
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+            tokenizer = null;
+        }
+
+        public String next() {
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+                try {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return tokenizer.nextToken();
+        }
+
+        public int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        public double nextDouble() {
+            return Double.parseDouble(next());
+        }
 
     }
 }

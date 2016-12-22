@@ -130,6 +130,7 @@ public class Parser {
     }
 
     public Node getNode(String expr) {
+        expr = expr.replaceAll(" ", "");
         pos = 0;
         s = expr;
         getLex();
