@@ -10,8 +10,8 @@ public class PointsGetter {
     private double DELTA = 1;
     private double curN = 1;
     private double curSin = 1 / 2;
-    private double nextX = 1;
-    private double nextY = 1;
+    private double x = 1;
+    private double y = 1;
     private int part = 3;
 
 
@@ -28,28 +28,29 @@ public class PointsGetter {
     /**
      * ctor with args
      */
-    PointsGetter(double DELTA, double curN, double curSin, double nextX, double nextY) {
+    PointsGetter(double DELTA, double curN, double curSin, double x, double y, int part) {
         this.DELTA = DELTA;
         this.curN = curN;
         this.curSin = curSin;
-        this.nextX = nextX;
-        this.nextY = nextY;
+        this.x = x;
+        this.y = y;
+        this.part = part;
     }
 
     double getDELTA() {
         return DELTA;
     }
 
-    double getNextX() {
-        return nextX;
+    double getX() {
+        return x;
     }
 
     public void setCurN(double curN) {
         this.curN = curN;
     }
 
-    double getNextY() {
-        return nextY;
+    double getY() {
+        return y;
     }
 
     /**
@@ -57,7 +58,12 @@ public class PointsGetter {
      */
     private void getNextSin(double nextN) {
         curSin = curSin * curN / nextN;
+        System.out.println(curSin);
         curN = nextN;
+    }
+    
+    private double offset() {
+        return Math.atan(Math.asin(curSin));
     }
 
     /**
@@ -66,79 +72,75 @@ public class PointsGetter {
     void getNextPoint(double nextN) {
         double prevSin = curSin;
         getNextSin(nextN);
-        if (curSin > 1 || curSin < -1) {
-            curSin = prevSin;
-        }
-//        System.out.println(Math.toDegrees(curSin) + " curSin");
-//        System.out.println(Math.tan(Math.asin(curSin)) + " arctg");
-        double x = (DELTA * (Math.tan(Math.asin(curSin))));
-//        System.out.println(x + " first X");
-        x *= x > 0 ? 1 : -1;
-//        System.out.println(DELTA * (Math.tan(Math.asin(curSin))) + " DELTA * (Math.tan(Math.asin(curSin)))");
-//        System.out.println(x + " x ");
         switch (part) {
             case 2:
                 if (curSin > 1) {
-                    nextX += x;
-                    nextY += DELTA;
+                    curSin = prevSin;
+                    y += DELTA;
+                    x += offset();
                     part = 3;
-                } else if (curSin > 0) {
-                    nextX += x;
-                    nextY -= DELTA;
+                } else if (curSin >= 0) {
+                    x += offset();
+                    y -= DELTA;
                     part = 2;
-                } else {
-                    nextX -= x;
-                    nextY -= DELTA;
+                } else if (curSin < 0 && curSin >= -1) {
+                    curSin = -curSin;
+                    x -= offset();
+                    y -= DELTA;
                     part = 1;
                 }
                 break;
             case 1:
                 if (curSin > 1) {
-                    nextX -= x;
-                    nextY += DELTA;
+                    curSin = prevSin;
+                    x -= offset();
+                    y += DELTA;
                     part = 4;
-                } else if (curSin > 0) {
-                    nextX -= x;
-                    nextY -= DELTA;
+                } else if (curSin >= 0) {
+                    x -= offset();
+                    y -= DELTA;
                     part = 1;
-                } else {
-                    nextX += x;
-                    nextY -= DELTA;
+                } else if (curSin < 0 && curSin >= -1) {
+                    curSin = -curSin;
+                    x += offset();
+                    y -= DELTA;
                     part = 2;
                 }
                 break;
             case 3:
                 if (curSin > 1) {
-                    nextX += x;
-                    nextY -= DELTA;
+                    curSin = prevSin;
+                    x += offset();
+                    y -= DELTA;
                     part = 2;
-                } else if (curSin > 0) {
-                    nextX += x;
-                    nextY += DELTA;
+                } else if (curSin >= 0) {
+                    x += offset();
+                    y += DELTA;
                     part = 3;
-//                    System.out.println(" here + " + nextX + " nextx, " + nextY + " nextY, ");
-                } else {
-                    nextX -= x;
-                    nextY += DELTA;
+                } else if (curSin < 0 && curSin >= -1) {
+                    curSin = -curSin;
+                    x -= offset();
+                    y += DELTA;
                     part = 4;
                 }
                 break;
             default:
+                assert part == 4;
                 if (curSin > 1) {
-                    nextX -= x;
-                    nextY -= DELTA;
+                    curSin = prevSin;
+                    x -= offset();
+                    y -= DELTA;
                     part = 1;
-                } else if (curSin > 0) {
-                    nextX -= x;
-                    nextY += DELTA;
+                } else if (curSin >= 0) {
+                    x -= offset();
+                    y += DELTA;
                     part = 4;
-                } else {
-                    nextX += x;
-                    nextY += DELTA;
+                } else if (curSin < 0 && curSin >= -1) {
+                    curSin = -curSin;
+                    x += offset();
+                    y += DELTA;
                     part = 3;
                 }
-//                    nextX += 1 / (Math.tan(Math.asin(curSin)) / DELTA);
-//                nextY += DELTA;
         }
     }
 }
