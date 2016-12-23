@@ -4,7 +4,7 @@
 
 public class PointsGetter {
     /**
-     * defult values whith parametrs ehich we can change
+     * default values with params which we can change
      */
 
     private double DELTA = 1;
@@ -61,9 +61,17 @@ public class PointsGetter {
         System.out.println(curSin);
         curN = nextN;
     }
-    
+
+//    private double offset() {
+//        return Math.atan(Math.asin(curSin));
+//    }
+    // здесь должен быть модуль - так как знак тебе не нужен и  ты его регулируешь сам
+    // и еще надо умножить на  delta
+    // ибо тангенст - это отношение x/delta  и вообще с какого фига тут арктангенс когда тут должен быть тангенс???
+
     private double offset() {
-        return Math.atan(Math.asin(curSin));
+        double xx = Math.tan(Math.asin(curSin)) * DELTA;
+        return xx >= 0 ? xx : -1 * xx;
     }
 
     /**
@@ -74,7 +82,7 @@ public class PointsGetter {
         getNextSin(nextN);
         switch (part) {
             case 2:
-                if (curSin > 1) {
+                if (curSin > 1 || curSin < -1) {
                     curSin = prevSin;
                     y += DELTA;
                     x += offset();
@@ -83,7 +91,7 @@ public class PointsGetter {
                     x += offset();
                     y -= DELTA;
                     part = 2;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     curSin = -curSin;
                     x -= offset();
                     y -= DELTA;
@@ -91,7 +99,7 @@ public class PointsGetter {
                 }
                 break;
             case 1:
-                if (curSin > 1) {
+                if (curSin > 1 || curSin < -1) { // исправила условия и добавила синус меньше -1
                     curSin = prevSin;
                     x -= offset();
                     y += DELTA;
@@ -100,7 +108,7 @@ public class PointsGetter {
                     x -= offset();
                     y -= DELTA;
                     part = 1;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     curSin = -curSin;
                     x += offset();
                     y -= DELTA;
@@ -108,7 +116,7 @@ public class PointsGetter {
                 }
                 break;
             case 3:
-                if (curSin > 1) {
+                if (curSin > 1 || curSin < -1) {
                     curSin = prevSin;
                     x += offset();
                     y -= DELTA;
@@ -117,7 +125,7 @@ public class PointsGetter {
                     x += offset();
                     y += DELTA;
                     part = 3;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     curSin = -curSin;
                     x -= offset();
                     y += DELTA;
@@ -126,7 +134,7 @@ public class PointsGetter {
                 break;
             default:
                 assert part == 4;
-                if (curSin > 1) {
+                if (curSin > 1 || curSin < -1) {
                     curSin = prevSin;
                     x -= offset();
                     y -= DELTA;
@@ -135,7 +143,7 @@ public class PointsGetter {
                     x -= offset();
                     y += DELTA;
                     part = 4;
-                } else if (curSin < 0 && curSin >= -1) {
+                } else {
                     curSin = -curSin;
                     x += offset();
                     y += DELTA;
