@@ -1,22 +1,22 @@
-## Курсовая работа по физике
-# "Распространение света в среде с переменным показателем преломления"
+## Physics course project
+# "light spreading in a medium with a refractive index variable"
 
-# Описание:
 
-## Формат входных данных:
 
-* Показатель преломления задается функцией от двух аргументов
-* Количество лучей а также описание из начальной траектории
-   * количество лучей
-   * дельта
-   * показатель преломления
-   * угол
-   * координата на оси абсцисс
-   * координата на оси ординат
-   * четверть
+## Input format:
+
+* The refractive index is given by a function of two arguments
+* The number of rays and a description of the initial trajectory
+   * amout of rays
+   * delta
+   * refractive index
+   * angle
+   * coordinate on the horizontal axis
+   * coordinate on the vertical axis
+   * part
  
 
-## Формат выходных данных:
+## Output format:
  
-* Графическая модель распространения лучей 
+* Graphic model of the light spreading 
   
