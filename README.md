@@ -1,5 +1,5 @@
 ## Physics course project
-# "light spreading in a medium with a refractive index variable"
+# "Light spreading in a medium with a refractive index variable"
 
 
 
