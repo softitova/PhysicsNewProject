@@ -7,7 +7,7 @@
 
 * The refractive index is given by a function of two arguments
 * The number of rays and a description of the initial trajectory
-   * amout of rays
+   * amount of rays
    * delta
    * refractive index
    * angle
