@@ -62,16 +62,8 @@ public class PointsGetter {
         curN = nextN;
     }
 
-//    private double offset() {
-//        return Math.atan(Math.asin(curSin));
-//    }
-    // здесь должен быть модуль - так как знак тебе не нужен и  ты его регулируешь сам
-    // и еще надо умножить на  delta
-    // ибо тангенст - это отношение x/delta  и вообще с какого фига тут арктангенс когда тут должен быть тангенс???
-
     private double offset() {
-        double xx = Math.tan(Math.asin(curSin)) * DELTA;
-        return xx >= 0 ? xx : -1 * xx;
+        return Math.tan(Math.asin(curSin)) * DELTA;
     }
 
     /**
@@ -99,7 +91,7 @@ public class PointsGetter {
                 }
                 break;
             case 1:
-                if (curSin > 1 || curSin < -1) { // исправила условия и добавила синус меньше -1
+                if (curSin > 1 || curSin < -1) {
                     curSin = prevSin;
                     x -= offset();
                     y += DELTA;
