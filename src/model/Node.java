@@ -12,13 +12,23 @@ public class Node {
 
     private static HashMap<L, String> mp;
 
+    private static final String PLUS = "+";
+
+    public static final String MINUS = "-";
+
+    public static final String MULT = "*";
+
+    public static final String DIV = "/";
+
+    public static final String POWER = "^";
+
     static {
         mp = new HashMap<>();
-        mp.put(L.plus, "+");
-        mp.put(L.minus, "-");
-        mp.put(L.mult, "*");
-        mp.put(L.div, "/");
-        mp.put(L.power, "^");
+        mp.put(L.plus, PLUS);
+        mp.put(L.minus, MINUS);
+        mp.put(L.mult, MULT);
+        mp.put(L.div, DIV);
+        mp.put(L.power, POWER);
     }
 
     public Node() {}

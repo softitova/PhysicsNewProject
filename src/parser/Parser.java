@@ -18,6 +18,14 @@ public class Parser {
             return;
         }
 
+/*
+        L[] temp = new L[]{L.plus, L.minus, L.mult, L.div, L.power, L.open, L.close};
+        for (L l : temp) {
+            if (s.charAt(pos) == l.value)
+                lex = l;
+        }
+*/
+
         switch (s.charAt(pos)) {
             case '+':
                 lex = L.plus;

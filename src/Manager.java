@@ -41,14 +41,14 @@ public class Manager {
          * count is amount of light lines in input file
          */
         //count = Integer.parseInt(in.readLine()) ; TODO fix input file
-        count = 10; //
+        //
         points = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             System.out.println(i);
             points.add(new ArrayList<>());
             new MyThread(i).run();
         }
-       // System.out.println("Manager.main");
+        // System.out.println("Manager.main");
         new Painter().paintRay(points);
 
         out.close();
@@ -63,9 +63,8 @@ public class Manager {
  *  or
  *  make new pointsGetter with default values for all arguments
  */
-            height /= pointsGetter.getDELTA();
 
-            int iters = 50;
+            int iters = (int) (height / pointsGetter.getDELTA());
             for (int i = 0; i < iters; i++) {
                 double curX = pointsGetter.getX();
                 double curY = pointsGetter.getY();
@@ -86,7 +85,8 @@ public class Manager {
 
     private static void makeExpression() throws IOException {
         Parser parser = new Parser();
-        function = "x-y";  // TODO: move to input file
+        function = in.next();
+        count = in.nextInt();
         expression = parser.getNode(function);
     }
 
