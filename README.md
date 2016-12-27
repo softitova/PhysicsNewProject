@@ -19,4 +19,3 @@
 ## Output format:
  
 * Graphic model of the light spreading 
-  

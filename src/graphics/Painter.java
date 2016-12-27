@@ -22,11 +22,9 @@ public class Painter {
         SwingWrapper rapper = new SwingWrapper(chart);
 
         for (int i = 1; i < points.size(); ++i) {
-            //System.out.println(points.get(i));
             chart.addSeries(Integer.toString(i), getX(points.get(i)), getY(points.get(i)));
         }
         rapper.displayChart();
-       // System.out.println("finished");
     }
 
     double[] getX(List<Point> list) {
