@@ -1,36 +1,21 @@
-
-import graphics.*;
-import model.*;
-import parser.*;
+import graphics.Painter;
+import model.Node;
+import model.Point;
+import parser.Parser;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Manager {
+    static ArrayList<ArrayList<Point>> points;
+    static Manager myManager = new Manager();
     // TODO: need to clear params
     private static String function; // to much params
     private static Node expression;
     private static PointsGetter pointsGetter;
     private static int count;
     private static InputReader in;
-    static ArrayList<ArrayList<Point>> points;
-
-    static Manager myManager = new Manager();
-
-    private static class MyThread extends Thread {
-        int index;
-
-        MyThread(int index) {
-            super();
-            this.index = index;
-        }
-
-        public void run() {
-            myManager.start(index);
-            System.out.println(index);
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         in = new InputReader(new FileInputStream("input.txt"));
@@ -41,17 +26,34 @@ public class Manager {
          * count is amount of light lines in input file
          */
         //count = Integer.parseInt(in.readLine()) ; TODO fix input file
-        //
-        points = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            System.out.println(i);
-            points.add(new ArrayList<>());
-            new MyThread(i).run();
-        }
-        // System.out.println("Manager.main");
-        new Painter().paintRay(points);
+
+//        points = new ArrayList<>();
+//        for (int i = 0; i < count; i++) {
+//            System.out.println(i);
+//            points.add(new ArrayList<>());
+//            new MyThread(i).run();
+//        }
+//         System.out.println("Manager.main");
+
+        double alphas[] = new double[]{2.1, 0.1, 0.1};
+
+
+        ArrayList<ArrayList<Point>> d = new SelfFocusing().getGraphicCoordinates(alphas,
+                (x, y) -> (x * y),
+                x -> (1e-3 - Math.abs(5e-4 - x * 1e-4)),
+                0.1, 0.5, 20, 20);
+        new Painter().paintRay(d);
+//        new Painter().paintRay(points);
+
 
         out.close();
+    }
+
+    private static void makeExpression() throws IOException {
+        Parser parser = new Parser();
+        function = in.next();
+        count = in.nextInt();
+        expression = parser.getNode(function);
     }
 
     private synchronized void start(int index) {
@@ -83,13 +85,6 @@ public class Manager {
         }
     }
 
-    private static void makeExpression() throws IOException {
-        Parser parser = new Parser();
-        function = in.next();
-        count = in.nextInt();
-        expression = parser.getNode(function);
-    }
-
     private synchronized void makePointsGetter() throws IOException {
         double del = in.nextDouble();
         double curN = in.nextDouble();
@@ -98,6 +93,20 @@ public class Manager {
         double y = in.nextDouble();
         int part = in.nextInt();
         pointsGetter = new PointsGetter(del, curN, curSin, x, y, part);
+    }
+
+    private static class MyThread extends Thread {
+        int index;
+
+        MyThread(int index) {
+            super();
+            this.index = index;
+        }
+
+        public void run() {
+            myManager.start(index);
+            System.out.println(index);
+        }
     }
 
     static class InputReader {

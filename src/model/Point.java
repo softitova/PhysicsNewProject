@@ -1,12 +1,10 @@
 package model;
 
-/**
- * Created by vadim on 28.11.16.
- */
 public class Point {
     public double x, y;
 
-    public Point() {}
+    public Point() {
+    }
 
     public Point(double x, double y) {
         this.x = x;
@@ -27,8 +25,16 @@ public class Point {
         return new Point(x - other.x, y - other.y);
     }
 
+    public Point mult(double d) {
+        return new Point(x * d, y * d);
+    }
+
+    public Point div(double d) {
+        return new Point(x / d, y / d);
+    }
+
     public Point rotate(double cos, double sin) {
-        return new Point(x * cos + y - sin, x * sin + y * cos);
+        return new Point(x * cos - y * sin, x * sin + y * cos);
     }
 
     public double norm() {

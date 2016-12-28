@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-/**
- * Created by Sofia on 20.11.16.
- */
-
 public class PointsGetter {
     /**
      * default values with params which we can change
@@ -27,10 +23,6 @@ public class PointsGetter {
     PointsGetter() {
     }
 
-    public double getCurSin() {
-        return curSin;
-    }
-
     /**
      * ctor with args
      */
@@ -41,6 +33,10 @@ public class PointsGetter {
         this.x = x;
         this.y = y;
         this.part = part;
+    }
+
+    public double getCurSin() {
+        return curSin;
     }
 
     double getDELTA() {
@@ -64,7 +60,7 @@ public class PointsGetter {
      */
     private void getNextSin(double nextN) {
         curSin = curSin * curN / nextN;
-        System.out.println(curSin);
+//        System.out.println(curSin);
         curN = nextN;
     }
 
@@ -183,5 +179,6 @@ public class PointsGetter {
         assert x == res.getValue()[0];
         assert y == res.getValue()[1];
         assert curSin == res.getValue()[2];
+//        System.out.println("Assertion gone nice");
     }
 }

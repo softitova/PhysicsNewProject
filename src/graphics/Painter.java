@@ -1,18 +1,13 @@
 package graphics;
 
+import model.Point;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import model.Point;
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-
-/**
- * Created by vadim on 28.11.16.
- */
 
 public class Painter {
 
@@ -71,7 +66,7 @@ public class Painter {
     }
 
     double[] getX(List<Point> list) {
-        System.out.println(list.size());
+//        System.out.println(list.size());
         double[] x = new double[list.size()];
         for (int i = 0; i < list.size(); ++i) {
             x[i] = list.get(i).x;
