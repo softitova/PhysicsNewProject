@@ -13,9 +13,8 @@ public class Point {
 
     @Override
     public String toString() {
-        return "{x=" + x + ", y=" + y + "}";
+        return "{x = " + x + ", y = " + y + "}";
     }
-
 
     public Point add(Point other) {
         return new Point(x + other.x, y + other.y);

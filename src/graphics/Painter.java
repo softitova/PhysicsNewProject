@@ -1,13 +1,18 @@
 package graphics;
 
-import model.Point;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import model.Point;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+
+/**
+ * Created by vadim on 28.11.16.
+ */
 
 public class Painter {
 
@@ -22,9 +27,10 @@ public class Painter {
         for (int i = 0; i < points.size(); ++i) {
             past.add(new ArrayList<>());
         }
-        chart = new XYChart(800, 800);
 
+        chart = new XYChart(800, 800);
         rapper = new SwingWrapper(chart);
+
         TimerTask currentTask = new TimerTask() {
             @Override
             public boolean cancel() {
@@ -44,9 +50,7 @@ public class Painter {
                 }
                 for (int i = 0; i < points.size(); ++i) {
                     if (past.get(i).size() < points.get(i).size()) {
-
                         past.get(i).add(points.get(i).get(past.get(i).size()));
-
                         if (!first)
                             chart.updateXYSeries(Integer.toString(i), getX(past.get(i)), getY(past.get(i)), null);
                         else
@@ -62,11 +66,10 @@ public class Painter {
         };
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(currentTask, 0, 300);
+        timer.scheduleAtFixedRate(currentTask, 0, 400);
     }
 
     double[] getX(List<Point> list) {
-//        System.out.println(list.size());
         double[] x = new double[list.size()];
         for (int i = 0; i < list.size(); ++i) {
             x[i] = list.get(i).x;
