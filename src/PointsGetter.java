@@ -87,6 +87,7 @@ public class PointsGetter {
         double mX[][] = new double[][]{{-1, 1, 1, -1}, {-1, 1, 1, -1}/*, {1, -1, -1, 1}*/};
         double mY[][] = new double[][]{{1, 1, -1, -1}, {-1, -1, 1, 1}/*, {-1, -1, 1, 1}*/};
         for (int i = 0; i < 2; ++i) {
+            if(curSin < 0 ) System.out.print("BAD FUNCTION OR THEORY");
             if (check.get(i).test(curSin)) {
                 if (i == 0)
                     curSin = prevSin;
