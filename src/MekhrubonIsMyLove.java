@@ -1,7 +1,3 @@
-/**
- * Created by Sofia on 28.12.16.
- */
-
 public class MekhrubonIsMyLove {
     private MekhrubonIsMyLove() {
     }

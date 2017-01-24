@@ -84,14 +84,15 @@ public class PointsGetter {
         newParts.add(q -> (5 - q));
         newParts.add(q -> q);
         newParts.add(q -> q % 4 + 1);
-        double mX[][] = new double[][]{{-1, 1, 1, -1}, {-1, 1, 1, -1}, {1, -1, -1, 1}};
-        double mY[][] = new double[][]{{1, 1, -1, -1}, {-1, -1, 1, 1}, {-1, -1, 1, 1}};
-        for (int i = 0; i < 3; ++i) {
+        double mX[][] = new double[][]{{-1, 1, 1, -1}, {-1, 1, 1, -1}/*, {1, -1, -1, 1}*/};
+        double mY[][] = new double[][]{{1, 1, -1, -1}, {-1, -1, 1, 1}/*, {-1, -1, 1, 1}*/};
+        for (int i = 0; i < 2; ++i) {
             if (check.get(i).test(curSin)) {
+                if (curSin < 0) break;
                 if (i == 0)
                     curSin = prevSin;
-                if (i == 2)
-                    curSin = -curSin;
+                /*if (i == 2)
+                    curSin = -curSin;*/
 
                 x += mX[i][part - 1] * offset();
                 y += mY[i][part - 1] * DELTA;
@@ -103,6 +104,9 @@ public class PointsGetter {
     }
 
     void getNextPoint(double nextN) {
+        if (curSin < 0) {
+            System.out.print("WRONG FUNCTION OR THEORY");
+        }
         double prevSin = curSin;
         getNextSin(nextN);
 
@@ -110,7 +114,7 @@ public class PointsGetter {
 
         switch (part) {
             case 1:
-                if (curSin > 1 || curSin < -1) {
+                if (curSin > 1 /*|| curSin < -1*/) {
                     curSin = prevSin;
                     x -= offset();
                     y += DELTA;
@@ -119,15 +123,15 @@ public class PointsGetter {
                     x -= offset();
                     y -= DELTA;
                     part = 1;
-                } else {
+                } /*else {
                     curSin = -curSin;
                     x += offset();
                     y -= DELTA;
                     part = 2;
-                }
+                }*/
                 break;
             case 2:
-                if (curSin > 1 || curSin < -1) {
+                if (curSin > 1/* || curSin < -1*/) {
                     curSin = prevSin;
                     y += DELTA;
                     x += offset();
@@ -136,15 +140,15 @@ public class PointsGetter {
                     x += offset();
                     y -= DELTA;
                     part = 2;
-                } else {
+                } /*else {
                     curSin = -curSin;
                     x -= offset();
                     y -= DELTA;
                     part = 1;
-                }
+                }*/
                 break;
             case 3:
-                if (curSin > 1 || curSin < -1) {
+                if (curSin > 1 /*|| curSin < -1*/) {
                     curSin = prevSin;
                     x += offset();
                     y -= DELTA;
@@ -153,16 +157,17 @@ public class PointsGetter {
                     x += offset();
                     y += DELTA;
                     part = 3;
-                } else {
+                }
+               /*  else {
                     curSin = -curSin;
                     x -= offset();
                     y += DELTA;
                     part = 4;
-                }
+                }*/
                 break;
             default:
                 assert part == 4;
-                if (curSin > 1 || curSin < -1) {
+                if (curSin > 1/* || curSin < -1*/) {
                     curSin = prevSin;
                     x -= offset();
                     y -= DELTA;
@@ -171,12 +176,13 @@ public class PointsGetter {
                     x -= offset();
                     y += DELTA;
                     part = 4;
-                } else {
+                }
+                /*} else {
                     curSin = -curSin;
                     x += offset();
                     y += DELTA;
                     part = 3;
-                }
+                }*/
         }
         assert part == res.getKey();
         assert x == res.getValue()[0];

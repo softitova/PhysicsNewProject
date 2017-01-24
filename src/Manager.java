@@ -73,9 +73,9 @@ public class Manager {
             for (int i = 0; i < iters; i++) {
                 double curX = pointsGetter.getX();
                 double curY = pointsGetter.getY();
-                double nextN = expression.evaluate(curY); // TODO: fix bag with double value
+                double nextN = expression.evaluate(curY); //
 
-                pointsGetter.getNextPoint(nextN);  // TODO: check this method
+                pointsGetter.getNextPoint(nextN);  //
                 pointsGetter.setCurN(nextN);
                 points.get(index).add(new Point(curX, curY));
             }
