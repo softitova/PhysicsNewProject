@@ -1,13 +1,9 @@
 
-import graphics.*;
 import graphics.Painter;
 import model.*;
 import model.Point;
 import parser.*;
 
-import javax.swing.*;
-
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -52,6 +48,7 @@ public class Manager {
             points.add(new ArrayList<>());
             new MyThread(i).run();
         }
+        new Painter().paintRay(points);
     }
 
     public void selfFocus() {
@@ -65,7 +62,7 @@ public class Manager {
 
     private synchronized void start(int index) {
         try {
-            double height = 50;
+
             makePointsGetter();
 /**
  *  get some data for constructor with arguments if we have them in input
@@ -76,7 +73,7 @@ public class Manager {
             for (int i = 0; i < iters; i++) {
                 double curX = pointsGetter.getX();
                 double curY = pointsGetter.getY();
-                double nextN = expression.evaluate(curX, curY); // TODO: fix bag with double value
+                double nextN = expression.evaluate(curY); // TODO: fix bag with double value
 
                 pointsGetter.getNextPoint(nextN);  // TODO: check this method
                 pointsGetter.setCurN(nextN);
@@ -86,7 +83,6 @@ public class Manager {
             double yy = pointsGetter.getY();
             points.get(index).add(new Point(xx, yy));
 
-            new Painter().paintRay(points);
         } catch (IOException e) {
             System.out.println("Need to change input");
         }

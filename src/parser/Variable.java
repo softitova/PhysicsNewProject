@@ -3,9 +3,7 @@ import java.math.BigDecimal;
 
 import model.*;
 
-/**
- * Created by vadim on 26.11.16.
- */
+
 public class Variable extends Node {
     private String var;
 
@@ -14,11 +12,12 @@ public class Variable extends Node {
     }
 
     @Override
-    public double evaluate(double x, double y) {
-        if (var.equals("x")) {
-            return x;
-        } else {
+    public double evaluate(double y) {
+        if (var.equals("y")) {
             return y;
+        } else {
+            System.out.println("Not 'Y' in expression");
+            return 0;
         }
     }
 

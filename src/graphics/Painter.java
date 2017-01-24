@@ -10,9 +10,7 @@ import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 
-/**
- * Created by vadim on 28.11.16.
- */
+
 
 public class Painter {
 
@@ -66,7 +64,7 @@ public class Painter {
         };
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(currentTask, 0, 400);
+        timer.scheduleAtFixedRate(currentTask, 0, 200);
     }
 
     double[] getX(List<Point> list) {

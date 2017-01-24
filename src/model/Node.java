@@ -3,9 +3,7 @@ import parser.L;
 
 import java.util.HashMap;
 
-/**
- * Created by vadim on 26.11.16.
- */
+
 public class Node {
     private Node left, right;
     private L oper;
@@ -38,18 +36,18 @@ public class Node {
         this.oper = oper;
     }
 
-    public double evaluate(double x, double y) {
+    public double evaluate(double y) {
         switch (oper) {
             case plus:
-                return left.evaluate(x, y) + right.evaluate(x, y);
+                return left.evaluate(y) + right.evaluate(y);
             case minus:
-                return left.evaluate(x, y) - right.evaluate(x, y);
+                return left.evaluate(y) - right.evaluate(y);
             case mult:
-                return left.evaluate(x, y) * right.evaluate(x, y);
+                return left.evaluate(y) * right.evaluate(y);
             case div:
-                return left.evaluate(x, y) / right.evaluate(x, y);
+                return left.evaluate(y) / right.evaluate(y);
             case power:
-                return Math.pow(left.evaluate(x, y), right.evaluate(x, y));
+                return Math.pow(left.evaluate(y), right.evaluate(y));
             default:
                 return 0;
         }

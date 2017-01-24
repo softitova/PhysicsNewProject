@@ -1,9 +1,7 @@
 package parser;
 
 import model.*;
-/**
- * Created by vadim on 26.11.16.
- */
+
 public class Parser {
 
     private L lex;
@@ -48,7 +46,6 @@ public class Parser {
             case ')':
                 lex = L.close;
                 break;
-            case 'x':
             case 'y':
                 lex = L.var;
                 var = String.valueOf(s.charAt(pos));
@@ -115,7 +112,7 @@ public class Parser {
     }
 
     private Node alone() {
-        Node ret = null;
+        Node ret;
         switch (lex) {
             case open:
                 getLex();
