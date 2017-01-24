@@ -77,9 +77,9 @@ public class PointsGetter {
 
     Pair<Integer, Double[]> MekhrubonTriesToOptimizeThis88888Code(int part, double curSin, double prevSin, double x, double y) {
         ArrayList<Predicate<Double>> check = new ArrayList<>();
-        check.add(v -> (v > 1 || v < -1));
+        check.add(v -> (v > 1 /*|| v < -1*/));
         check.add(v -> v >= 0);
-        check.add(v -> true);
+        /*check.add(v -> true);*/
         ArrayList<UnaryOperator<Integer>> newParts = new ArrayList<>();
         newParts.add(q -> (5 - q));
         newParts.add(q -> q);
@@ -88,7 +88,6 @@ public class PointsGetter {
         double mY[][] = new double[][]{{1, 1, -1, -1}, {-1, -1, 1, 1}/*, {-1, -1, 1, 1}*/};
         for (int i = 0; i < 2; ++i) {
             if (check.get(i).test(curSin)) {
-                if (curSin < 0) break;
                 if (i == 0)
                     curSin = prevSin;
                 /*if (i == 2)
