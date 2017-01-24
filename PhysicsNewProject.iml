@@ -10,7 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Загрузки/xchart-3.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/xchart-3.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
