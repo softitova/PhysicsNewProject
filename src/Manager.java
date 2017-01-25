@@ -33,7 +33,8 @@ public class Manager {
     }
 
     public static void main(String[] args) throws IOException {
-        new Gui().run();
+//        new Gui().run();
+        new Manager().selfFocus();
     }
 
     public void paintRays(String function) {
@@ -52,11 +53,11 @@ public class Manager {
     }
 
     public void selfFocus() {
-        double alphas[] = new double[]{2.1, 0.1, 0.1};
+        double alphas[] = new double[]{0, 0, 1};
         ArrayList<ArrayList<Point>> d = new SelfFocusing().getGraphicCoordinates(alphas,
-                (x, y) -> (x * y),
-                x -> (1e-3 - Math.abs(5e-4 - x * 1e-4)),
-                0.1, 0.5, 20, 20);
+                (x, y) -> (x * y) / 10000,
+                x -> (x * x),
+                0.1, 1, 3, 20);
         new Painter().paintRay(d);
     }
 

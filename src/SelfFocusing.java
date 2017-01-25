@@ -18,8 +18,10 @@ public class SelfFocusing {
     double getSinB(Point a, Point b, double n) {
         b = b.minus(a);
 
+        System.out.println(b);
         double cosA = b.y / b.norm();
         double sinA = sqrt(1 - cosA * cosA);
+        System.out.println("\t" + cosA + " " + sinA);
 //        out.println("Sin Alpha = " + sinA);
         return sinA / n;
     }
@@ -48,32 +50,48 @@ public class SelfFocusing {
         }
 
         ArrayList<ArrayList<Point>> ans = new ArrayList<>();
+        ArrayList<Double> intens = new ArrayList<>();
 
 
         for (double y = 0; y < h; y += deltaY) {
-            double intens = intensity.apply(y);
+            intens.add(intensity.apply(y));
             ArrayList<Point> t = new ArrayList<>();
             t.add(new Point(0, y));
-            t.add(new Point(1, y - (y - maxY) * 1e-3));
-            for (double x = 1 + deltaX; x < w; x += deltaX) {
-                double e = elfield.apply(x, y);
-                double i = e * e;
-                double alpha = alphas[0] + alphas[2] * i;
-                double n = sqrt(1 + 4 * Math.PI * intens * alpha);
-
-//                n = (1) + (x / w);
-                int last = t.size();
-
-                double cos = min(getSinB(t.get(last - 2), t.get(last - 1), n), 1.);
-                double sin = sqrt(1 - cos * cos);
-                Point p = rotateVector(new Point(0, 0), new Point(1, 0), cos, sin * f(y, maxY));
-
-                p = p.mult(1).add(t.get(last - 1));
-                t.add(p);
-            }
-
+            t.add(new Point(1, y));
             ans.add(t);
         }
+        for (int iter = 1; iter < 30; iter++) {
+            ArrayList<Point> directions = new ArrayList<>();
+            for (int i = 0; i < intens.size(); i++) {
+                Point last = ans.get(i).get(iter);
+                double e = elfield.apply(last.x, last.y);
+                double in = e * e;
+                double alpha = alphas[0] + alphas[2] * in;
+                double n = sqrt(1 + 4 * Math.PI * intens.get(i) * alpha);
+
+//                n = (1) + (x / w);
+                System.out.println(n);
+                double cos = getSinB(ans.get(i).get(iter - 1), last, n);
+                double sin = sqrt(1 - cos * cos);
+                System.out.println(cos + " " + sin);
+                Point p = rotateVector(new Point(0, 0), new Point(1, 0), cos, sin);
+
+//                ans.get(i).add(p.add(last));
+                directions.add(p.div(p.norm()));
+            }
+            for (int i = 0; i < intens.size(); ++i) {
+                Point dir = new Point(0, 0);
+                for (int j = 0; j < intens.size(); j++) {
+                    Point otherDest = directions.get(j).add(ans.get(j).get(iter));
+                    Point dif = otherDest.minus(ans.get(i).get(iter));
+                    double k = 1 + ans.get(j).get(iter).minus(ans.get(i).get(iter)).norm();
+                    dir = dir.add(dif.mult(intens.get(j) / dif.norm() / k));
+                }
+//                System.out.println(dir);
+                ans.get(i).add(dir.div(dir.norm()).add(ans.get(i).get(iter)));
+            }
+        }
+//        System.out.println(ans);
         return ans;
     }
 
